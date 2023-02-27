@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./movie-item.module.scss";
 import { AiOutlinePlayCircle } from "react-icons/ai";
+import { trimTextWithEllipsis } from "../../../helpers";
 
 interface MovieItemType {
   adult: boolean;
@@ -18,20 +19,22 @@ interface MovieItemType {
   vote_average: number;
   vote_count: number;
 }
-
 interface Props {
   item: MovieItemType;
 }
 const MovieItem: React.FC<Props> = ({ item }) => {
   return (
     <div className={styles["movie-item"]}>
-      <div className={styles["movie-cover"]}>
-        <img src={item?.backdrop_path} alt="" />
+      <div className={styles["backdrop"]}>
+        <img src={item?.poster_path} alt="" />
+        <p className={styles["vote-average"]}>{item?.vote_average}</p>
         <div className={styles["overlay"]}>
           <AiOutlinePlayCircle />
         </div>
       </div>
-      <h4 className={styles["movie-title"]}>{item?.title}</h4>
+      <h4 className={styles["title"]}>
+        {trimTextWithEllipsis(item?.title, 30)}
+      </h4>
     </div>
   );
 };
