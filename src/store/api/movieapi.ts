@@ -30,7 +30,18 @@ export const movieApi = createApi({
         return { ...response, results: formattedMovieItems };
       },
     }),
+
+    getMovieDetails: builder.query({
+      query: (id: string) => `/movie/${id}?api_key=${api_key}`,
+      transformResponse(response: any, meta, arg) {
+        return {
+          ...response,
+          backdrop_path: VITE_BASE_IMG_W500 + response?.backdrop_path,
+          poster_path: VITE_BASE_IMG_W500 + response?.poster_path,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetMoviesQuery } = movieApi;
+export const { useGetMoviesQuery, useGetMovieDetailsQuery } = movieApi;

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./movie-item.module.scss";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { trimTextWithEllipsis } from "../../../helpers";
+import { useNavigate } from "react-router-dom";
 
 interface MovieItemType {
   adult: boolean;
@@ -23,8 +24,16 @@ interface Props {
   item: MovieItemType;
 }
 const MovieItem: React.FC<Props> = ({ item }) => {
+  const navigate = useNavigate();
   return (
-    <div className={styles["movie-item"]}>
+    <div
+      className={styles["movie-item"]}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        navigate(`/movies/${item.id}`);
+      }}
+    >
       <div className={styles["backdrop"]}>
         <img src={item?.poster_path} alt="" />
         <p className={styles["vote-average"]}>{item?.vote_average}</p>

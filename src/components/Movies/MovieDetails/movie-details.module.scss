@@ -1,0 +1,29 @@
+.movie-details {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+
+  .poster {
+    width: 180px;
+    height: 250px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h4 {
+        font-size: 16px;
+        font-weight: 300;
+      }
+    }
+  }
+}
