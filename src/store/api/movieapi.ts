@@ -31,6 +31,22 @@ export const movieApi = createApi({
       },
     }),
 
+    getTopRatedMovies: builder.query({
+      query: (queryParams = "") =>
+        `/movie/top_rated?api_key=${api_key}&${queryParams}`,
+      transformResponse(response: any, meta, arg) {
+        const formattedMovieItems = response?.results?.map((item: any) => {
+          return {
+            ...item,
+            backdrop_path: VITE_BASE_IMG_W500 + item?.backdrop_path,
+            poster_path: VITE_BASE_IMG_W500 + item?.poster_path,
+          };
+        });
+
+        return { ...response, results: formattedMovieItems.slice(0, 5) };
+      },
+    }),
+
     getMovieDetails: builder.query({
       query: (id: string) => `/movie/${id}?api_key=${api_key}`,
       transformResponse(response: any, meta, arg) {
@@ -64,4 +80,5 @@ export const {
   useGetMoviesQuery,
   useGetMovieDetailsQuery,
   useGetMovieVideosQuery,
+  useGetTopRatedMoviesQuery,
 } = movieApi;

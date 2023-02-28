@@ -1,29 +1,26 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0.625rem 0;
 
-  .brand-logo {
-    a {
-      font-size: 1.75rem;
-      color: #fff;
-      font-weight: 600;
+  background-color: #201f26;
+  border-radius: 0 0 10px 10px;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    li {
+      border-top: 2px solid transparent;
+      padding: 10px 20px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0b0a0d;
+        border-top: 2px solid #5a2e98;
+      }
     }
-  }
-
-  .btn-signin {
-    height: 50px;
-    line-height: 50px;
-    padding: 0 30px;
-    font-weight: 500;
-    border-radius: 30px;
-    font-size: 16px;
-    margin-left: 5px;
-    text-align: center;
-
-    background: #5a2e98;
-    color: #fff;
-    border-color: #5a2e98;
   }
 }
