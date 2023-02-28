@@ -1,59 +1,98 @@
 import React from "react";
+import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
-import { useGetMovieDetailsQuery } from "../../../store/api/movieapi";
+import {
+  useGetMovieDetailsQuery,
+  useGetMovieVideosQuery,
+} from "../../../store/api/movieapi";
+import Loader from "../../Loader/Loader";
+
 import styles from "./movie-details.module.scss";
+
 const MovieDetails = () => {
   const { id } = useParams();
-
-  console.log(
-    "%cMovieDetails.tsx line:7 id",
-    "color: white; background-color: #007acc;",
-    id
-  );
 
   const { data: movieDetails, isFetching } = useGetMovieDetailsQuery(id ?? "", {
     skip: typeof id !== "string",
   });
 
+  const { data: movieVideos, isFetching: isMovieVideosFetching } =
+    useGetMovieVideosQuery(id ?? "", {
+      skip: typeof id !== "string",
+    });
+
   console.log(
     "%cMovieDetails.tsx line:16 movieDetails",
     "color: white; background-color: #007acc;",
-    movieDetails
+    movieVideos
   );
+
+  if (isFetching) return <Loader />;
+
   return (
     <div className={styles["movie-details"]}>
-      <div className={styles["poster"]}>
-        <img src={movieDetails?.poster_path} alt="" />
-      </div>
-      <div className={styles["details"]}>
-        <div className={styles["title"]}>
-          <h4>The Vampire</h4>
-          <p>The Vampire</p>
-        </div>
+      <div className={styles["movie-trailer"]}>
+        <h4>Trailer </h4>
 
-        <div className={styles["plot"]}>
-          <p>
-            From his deathbed, Hero-King Inglis, the divine knight and master of
-            all he surveys, gazes down on the empire he built with his mighty
-            hand. Having devoted his life to statecraft and his subjects'
-            well-being, his one unfulfilled wish is to live again, for himself
-            this time: a warrior's life he'd devoted himself to before his rise
-            to power. His patron goddess, Alistia, hears his plea and smiles
-            upon him, flinging his soul into the far future. Goddesses work in
-            mysterious ways—not only is Inglis now the daughter of a minor noble
-            family, but at her first coming-of-age ceremony at 6, she's found
-            ineligible to begin her knighthood! However, for a lady of Inglis's
-            ambition, this is less a setback and more the challenge she was
-            (re)born to overcome. "It's not the blood that runs through your
-            veins that makes a knight; it's the blood you shed on the
-            battlefield!" The curtain rises on the legend of an extraordinary
-            lady squire reborn to master the blade!
-          </p>
+        {isMovieVideosFetching ? (
+          <Loader />
+        ) : (
+          <ReactPlayer
+            className="react-player"
+            url={movieVideos?.url}
+            width="100%"
+            height="100%"
+          />
+        )}
+      </div>
+      <div className={styles["movie-information"]}>
+        <div className={styles["poster"]}>
+          <img src={movieDetails?.poster_path} alt="" />
         </div>
-        {/* 
-        <div className={styles["information"]}>
-          <p>The Vampire</p>
-        </div> */}
+        <div className={styles["details"]}>
+          <div className={styles["title"]}>
+            <h4>{movieDetails?.title}</h4>
+            <p>{movieDetails?.tagline}</p>
+            {/* <p>{movieDetails?.original_language}</p> */}
+          </div>
+
+          <div className={styles["plot"]}>
+            <p>{movieDetails?.overview}</p>
+          </div>
+
+          <div className={styles["information"]}>
+            <ul>
+              <li>
+                homepage:
+                <a href={movieDetails?.homepage}>{movieDetails?.homepage}</a>
+              </li>
+              <li>
+                Date aired: <span>{movieDetails?.release_date}</span>
+              </li>
+              <li>
+                Status: <span>{movieDetails?.status}</span>
+              </li>
+              <li>
+                Genre:
+                <div className={styles["genres"]}>
+                  {movieDetails?.genres?.map((genre: any) => (
+                    <span key={genre?.id}>{genre?.name},</span>
+                  ))}
+                </div>
+              </li>
+            </ul>
+
+            <ul>
+              <li>
+                Vote average: <span>{movieDetails?.vote_average}</span>
+              </li>
+              <li>
+                Duration:
+                <span>{movieDetails?.runtime} min</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

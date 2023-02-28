@@ -1,28 +1,113 @@
 .movie-details {
   display: flex;
-  gap: 20px;
-  font-size: 14px;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
 
-  .poster {
-    width: 180px;
-    height: 250px;
-    border-radius: 4px;
-    object-fit: cover;
+  .movie-trailer {
+    margin: auto;
+    position: relative;
+    // padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+    height: 600px;
+    width: 100%;
+    font-size: 16px;
+    background-color: #1d1b26;
+    border-radius: 10px;
+    overflow: hidden;
+
+    h4 {
+      padding: 10px 20px;
+    }
   }
 
-  .details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
 
-    .header {
+  .movie-information {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    background-color: #1d1b26;
+    padding: 20px 20px;
+    border-radius: 8px;
+
+    .poster {
+      min-width: 180px;
+      width: 180px;
+      min-height: 250px;
+      height: 250px;
+      border-radius: 4px;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .details {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 25px;
 
-      h4 {
-        font-size: 16px;
-        font-weight: 300;
+      .title {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        h4 {
+          font-size: 1.2rem;
+          font-weight: 300;
+          color: #9e5bfb;
+          font-weight: 600;
+        }
+
+        p {
+          font-size: 14px;
+          font-style: italic;
+          color: #a2a2a2;
+        }
+      }
+
+      .plot {
+        color: #a2a2a2;
+      }
+
+      .information {
+        display: flex;
+        flex-wrap: wrap;
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          color: #a2a2a2;
+          flex: 1;
+
+          li {
+            display: flex;
+            gap: 10px;
+          }
+
+          span {
+            color: rgb(215, 215, 215);
+          }
+
+          a {
+            color: #9e5bfb;
+          }
+
+          .genres {
+            display: flex;
+            gap: 5px;
+          }
+        }
       }
     }
   }

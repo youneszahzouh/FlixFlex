@@ -41,7 +41,27 @@ export const movieApi = createApi({
         };
       },
     }),
+
+    getMovieVideos: builder.query({
+      query: (id: string) => `/movie/${id}/videos?api_key=${api_key}`,
+      transformResponse(response: any, meta, arg) {
+        const trailers = response?.results?.filter(
+          (video: any) => video?.type === "Trailer" && video?.site === "Youtube"
+        );
+
+        let video = trailers?.length > 0 ? trailers[0] : response?.results?.[0];
+
+        return {
+          ...video,
+          url: `https://www.youtube.com/watch?v=${video?.key}`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetMoviesQuery, useGetMovieDetailsQuery } = movieApi;
+export const {
+  useGetMoviesQuery,
+  useGetMovieDetailsQuery,
+  useGetMovieVideosQuery,
+} = movieApi;
