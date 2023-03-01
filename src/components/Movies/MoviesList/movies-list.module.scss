@@ -1,7 +1,15 @@
-.movies-list {
+.items-listing {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   column-gap: 20px;
   justify-content: center;
   row-gap: 30px;
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    justify-content: center;
+    row-gap: 30px;
+  }
 }

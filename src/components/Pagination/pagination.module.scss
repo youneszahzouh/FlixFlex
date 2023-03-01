@@ -1,0 +1,55 @@
+.pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px 0;
+
+  .direction {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5a2e98;
+    border-radius: 10%;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #8244da;
+    }
+  }
+
+  .disabled {
+    pointer-events: none;
+    background-color: #ada7b6;
+    color: #74559e;
+  }
+
+  .page-input {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+
+    .goto {
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #8244da;
+      border-radius: 0 10px 10px 0;
+      border: 0;
+    }
+
+    input {
+      border-radius: 10px 0 0 10px;
+      background-color: #eee;
+      outline: 0;
+      border: 0;
+      font-size: 18px;
+      font-weight: 400;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 60px;
+    }
+  }
+}
