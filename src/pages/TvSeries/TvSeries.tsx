@@ -8,7 +8,7 @@ import {
 } from "../../store/api/tvSeriesApi";
 import styles from "./tv-series.module.scss";
 
-const base_url = "/tvSeries";
+const base_url = "/tvSeries?";
 
 const TvSeries = () => {
   const [params] = useSearchParams();
@@ -36,15 +36,8 @@ const TvSeries = () => {
   if (isFetching) return <Loader />;
   return (
     <div className={styles["tv-series"]}>
-      <ItemsList
-        pagination={pagination}
-        data={latestTvSeries}
-        redirect_url={"/tvserie/"}
-      />
-      <TopRatedSection
-        data={topRatedTvSeries?.results}
-        redirect_url={"/tvserie/"}
-      />
+      <ItemsList pagination={pagination} data={latestTvSeries} />
+      <TopRatedSection data={topRatedTvSeries?.results} />
     </div>
   );
 };

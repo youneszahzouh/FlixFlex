@@ -43,7 +43,7 @@ const Pagination = ({ pagination }: PaginationType) => {
   return (
     <div className={styles["pagination"]}>
       <Link
-        to={`${base_url}?page=${prevPage}`}
+        to={`${base_url}&page=${prevPage}`}
         className={classNames(
           styles["direction"],
           prevPage < 0 ? styles["disabled"] : ""
@@ -60,13 +60,13 @@ const Pagination = ({ pagination }: PaginationType) => {
             setGoToPage(e.target.value);
           }}
         />
-        <Link to={`${base_url}?page=${goToPage}`} className={styles["goto"]}>
+        <Link to={`${base_url}&page=${goToPage}`} className={styles["goto"]}>
           Go
         </Link>
       </div>
 
       <Link
-        to={`${base_url}?page=${nextPage}`}
+        to={`${base_url}&page=${nextPage}`}
         className={classNames(
           styles["direction"],
           nextPage < 0 ? styles["disabled"] : ""

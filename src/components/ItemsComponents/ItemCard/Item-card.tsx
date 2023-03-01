@@ -23,14 +23,13 @@ interface ItemCardType {
 }
 interface Props {
   item: ItemCardType;
-  redirect_url: string;
 }
-const ItemCard: React.FC<Props> = ({ item, redirect_url }) => {
+const ItemCard: React.FC<Props> = ({ item }) => {
   const nameOrTitle = item?.title ?? item?.name ?? "";
   return (
     <Link
       className={styles["item-card"]}
-      to={`${redirect_url}${item?.id}_${nameOrTitle
+      to={`${item?.title ? "/movies/" : "/tvseries/"}${item?.id}_${nameOrTitle
         .toLowerCase()
         .replaceAll(" ", "-")}`}
     >

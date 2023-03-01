@@ -8,7 +8,7 @@ import {
 } from "../../store/api/movieApi";
 import styles from "./movies.module.scss";
 
-const base_url = "/movies";
+const base_url = "/movies?";
 
 const Movies = () => {
   const [params] = useSearchParams();
@@ -34,15 +34,8 @@ const Movies = () => {
   if (isFetching) return <Loader />;
   return (
     <div className={styles["movies"]}>
-      <ItemsList
-        pagination={pagination}
-        data={latestMovies}
-        redirect_url={"/movie/"}
-      />
-      <TopRatedSection
-        data={topRatedMovies?.results}
-        redirect_url={"/movie/"}
-      />
+      <ItemsList pagination={pagination} data={latestMovies} />
+      <TopRatedSection data={topRatedMovies?.results} />
     </div>
   );
 };

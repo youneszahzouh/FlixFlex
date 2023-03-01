@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SearchComponent from "../../SearchComponent/SearchComponent";
 import styles from "./header.module.scss";
 
 const Header = () => {
@@ -17,6 +18,7 @@ const Header = () => {
       </div>
 
       <div className={styles["right-side"]}>
+        <SearchComponent />
         <button className={styles["btn-logout"]} onClick={onLogout}>
           Logout
         </button>

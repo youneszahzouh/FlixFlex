@@ -15,19 +15,27 @@
     }
   }
 
-  .btn-logout {
-    cursor: pointer;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 30px;
-    font-weight: 500;
-    border-radius: 30px;
-    font-size: 16px;
-    margin-left: 5px;
-    text-align: center;
+  .right-side {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
 
-    background: #5a2e98;
-    color: #fff;
-    border-color: #5a2e98;
+    .btn-logout {
+      display: flex;
+      cursor: pointer;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 30px;
+      font-weight: 500;
+      border-radius: 30px;
+      font-size: 16px;
+      margin-left: 5px;
+      text-align: center;
+
+      background: #5a2e98;
+      color: #fff;
+      border-color: #5a2e98;
+    }
   }
 }
