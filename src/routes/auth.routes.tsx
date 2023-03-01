@@ -1,5 +1,8 @@
-import Login from "../pages/Auth/Login/Login";
-import Signup from "../pages/Auth/Signup/Signup";
+import React from "react";
+
+const Login = React.lazy(() => import("../pages/Auth/Login/Login"));
+
+const Signup = React.lazy(() => import("../pages/Auth/Signup/Signup"));
 
 export const authRoutes = [
   { path: "/login", component: <Login /> },

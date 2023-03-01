@@ -1,3 +1,7 @@
 ### FlixFlex Movie App
 
-Created by: Younes Zahzouh
+
+
+##### Github : https://github.com/youneszahzouh/FlixFlex 
+##### Netlify : https://younes-zahzouh-flixflex.netlify.app
+

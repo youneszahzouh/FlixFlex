@@ -1,21 +1,13 @@
 import React, { useState } from "react";
 import { FlixFlexCover, LoginCover } from "../../../assets";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import {
-  db,
-  auth,
-  logInWithEmailAndPassword,
-} from "../../../firebase/firebase";
-import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { logInWithEmailAndPassword } from "../../../firebase/firebase";
+import { Link } from "react-router-dom";
 
 import styles from "./login.module.scss";
 import Loader from "../../../components/Loader/Loader";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const validation = useFormik({
     enableReinitialize: true,
@@ -38,10 +30,10 @@ const Login = () => {
 
   return (
     <div className={styles["login"]}>
-      <img src={FlixFlexCover} alt="" />
+      <img loading="lazy" src={FlixFlexCover} alt="" />
 
       <div className={styles["login-card"]}>
-        <img src={LoginCover} alt="" />
+        <img loading="lazy" src={LoginCover} alt="" />
 
         <h1>FlixFlex</h1>
 

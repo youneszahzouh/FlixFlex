@@ -51,10 +51,10 @@ const Signup = () => {
 
   return (
     <div className={styles["signup"]}>
-      <img src={FlixFlexCover} alt="" />
+      <img loading="lazy" src={FlixFlexCover} alt="" />
 
       <div className={styles["signup-card"]}>
-        <img src={SignupCover} alt="" />
+        <img loading="lazy" src={SignupCover} alt="" />
         <h1>FlixFlex</h1>
         <form
           className={styles["form"]}
