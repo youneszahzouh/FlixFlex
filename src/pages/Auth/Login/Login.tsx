@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { FlixFlexCover, LoginCover } from "../../../assets";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth } from "../../../firebase/app";
+import {
+  db,
+  auth,
+  logInWithEmailAndPassword,
+} from "../../../firebase/firebase";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import styles from "./login.module.scss";
+import Loader from "../../../components/Loader/Loader";
+
 const Login = () => {
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -21,41 +25,12 @@ const Login = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email().required("Please Enter a valid Email!"),
-      password: Yup.string()
-        .required("Password is required!")
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-        ),
-      confirmPassword: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Passwords must match"
-      ),
-    }),
 
     onSubmit: async (values) => {
+      setIsLoading(true);
       const { password, email } = values;
 
-      setIsLoading(true);
-      try {
-        await signInWithEmailAndPassword(firebaseAuth, email, password)
-          .then((userCredential) => {
-            console.log(userCredential);
-            if (userCredential?.user?.email) {
-              localStorage.setItem("email", userCredential?.user?.email);
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        toast.success("Welcome Back");
-        navigate("/movies");
-      } catch (error) {
-        console.log(error);
-      }
+      await logInWithEmailAndPassword(email, password);
 
       setIsLoading(false);
     },
@@ -85,9 +60,6 @@ const Login = () => {
               value={validation.values.email}
               onChange={validation.handleChange}
             />
-            {/* {validation.touched.email && !!validation.errors.email ? (
-              <p>{validation.errors.email}</p>
-            ) : null} */}
           </div>
 
           <div className={styles["form-control"]}>
@@ -98,13 +70,14 @@ const Login = () => {
               value={validation.values.password}
               onChange={validation.handleChange}
             />
-            {/* {validation.touched.password && !!validation.errors.password ? (
-              <p>{validation.errors.email}</p>
-            ) : null} */}
           </div>
 
-          <button type="submit">Login {isLoading ? "..." : null}</button>
+          <button type="submit">Login {isLoading ? <Loader /> : null}</button>
         </form>
+
+        <div className={styles["redirect"]}>
+          Don't have an account? <Link to="/signup">Signup</Link>
+        </div>
       </div>
     </div>
   );

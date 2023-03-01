@@ -1,9 +1,15 @@
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { Movies } from "../pages";
-import Discover from "../pages/Discover/Discover";
-import MovieDetails from "../pages/MovieDetails/MovieDetails";
-import TvSerieDetails from "../pages/TvSerieDetails/TvSerieDetails";
-import TvSeries from "../pages/TvSeries/TvSeries";
+
+const Movies = React.lazy(() => import("../pages/Movies/Movies"));
+const Discover = React.lazy(() => import("../pages/Discover/Discover"));
+const MovieDetails = React.lazy(
+  () => import("../pages/MovieDetails/MovieDetails")
+);
+const TvSerieDetails = React.lazy(
+  () => import("../pages/TvSerieDetails/TvSerieDetails")
+);
+const TvSeries = React.lazy(() => import("../pages/TvSeries/TvSeries"));
 
 export const userRoutes = [
   { path: "/movies/:id", component: <MovieDetails /> },

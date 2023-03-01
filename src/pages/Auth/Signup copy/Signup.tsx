@@ -5,9 +5,9 @@ import * as Yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import styles from "./signup.module.scss";
-import { auth, registerWithEmailAndPassword } from "../../../firebase/firebase";
+import { firebaseAuth } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const Signup = () => {
       confirmPassword: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Please Enter a valid Username!"),
       email: Yup.string().email().required("Please Enter a valid Email!"),
       password: Yup.string()
         .required("Password is required!")
@@ -38,27 +37,45 @@ const Signup = () => {
     }),
 
     onSubmit: async (values) => {
-      const { username, password, email } = values;
+      const { password, email } = values;
 
       setIsLoading(true);
-
       try {
-        await registerWithEmailAndPassword(username, email, password);
-      } catch (err: any) {
-        toast.error(err.message);
+        await createUserWithEmailAndPassword(firebaseAuth, email, password)
+          .then((userCredential) => {
+            console.log(userCredential);
+            if (userCredential?.user?.email) {
+              localStorage.setItem("email", userCredential?.user?.email);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        toast.success("User Registered successfully");
+        navigate("/movies");
+      } catch (error) {
+        console.log(error);
       }
 
       setIsLoading(false);
     },
   });
 
+  console.log(
+    "%cSignup.tsx line:49 validation?.errors",
+    "color: white; background-color: #007acc;",
+    validation?.errors
+  );
   return (
     <div className={styles["signup"]}>
       <img src={FlixFlexCover} alt="" />
 
       <div className={styles["signup-card"]}>
         <img src={SignupCover} alt="" />
+
         <h1>FlixFlex</h1>
+
         <form
           className={styles["form"]}
           onSubmit={(e) => {
@@ -66,18 +83,12 @@ const Signup = () => {
             validation.handleSubmit();
           }}
         >
-          <div className={styles["form-control"]}>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={validation.values.username}
-              onChange={validation.handleChange}
-            />
+          {/* <div className={styles["form-control"]}>
+            <input type="text" name="username" placeholder="Username" />
             {validation.touched.username && !!validation.errors.username ? (
               <p>{validation.errors.email}</p>
             ) : null}
-          </div>
+          </div> */}
 
           <div className={styles["form-control"]}>
             <input
@@ -87,9 +98,9 @@ const Signup = () => {
               value={validation.values.email}
               onChange={validation.handleChange}
             />
-            {validation.touched.email && !!validation.errors.email ? (
+            {/* {validation.touched.email && !!validation.errors.email ? (
               <p>{validation.errors.email}</p>
-            ) : null}
+            ) : null} */}
           </div>
 
           <div className={styles["form-control"]}>
@@ -100,9 +111,9 @@ const Signup = () => {
               value={validation.values.password}
               onChange={validation.handleChange}
             />
-            {validation.touched.password && !!validation.errors.password ? (
-              <p>{validation.errors.password}</p>
-            ) : null}
+            {/* {validation.touched.password && !!validation.errors.password ? (
+              <p>{validation.errors.email}</p>
+            ) : null} */}
           </div>
 
           <div className={styles["form-control"]}>
@@ -113,17 +124,14 @@ const Signup = () => {
               value={validation.values.confirmPassword}
               onChange={validation.handleChange}
             />
-            {validation.touched.confirmPassword &&
+            {/* {validation.touched.confirmPassword &&
             !!validation.errors.confirmPassword ? (
-              <p>{validation.errors.confirmPassword}</p>
-            ) : null}
+              <p>{validation.errors.email}</p>
+            ) : null} */}
           </div>
 
           <button type="submit">Signup {isLoading ? "..." : null}</button>
         </form>
-        <div className={styles["redirect"]}>
-          Already have an account? <Link to="/login">login</Link>
-        </div>
       </div>
     </div>
   );

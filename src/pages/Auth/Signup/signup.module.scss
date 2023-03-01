@@ -29,7 +29,7 @@
     width: 100%;
     max-width: 400px;
     height: 100%;
-    max-height: 400px;
+    max-height: 500px;
     border-radius: 10px;
     background-color: #ffffff;
     z-index: 2;
@@ -67,7 +67,7 @@
         flex-direction: column;
         width: 100%;
         max-width: 400px;
-
+        font-size: 14px;
         input {
           font-size: 16px;
           border: 0;
@@ -90,6 +90,10 @@
             color: #ab86df;
           }
         }
+
+        p {
+          color: rgb(219, 75, 75);
+        }
       }
 
       button {
@@ -106,6 +110,16 @@
         &:hover {
           background-color: #6e42aa;
         }
+      }
+    }
+
+    .redirect {
+      color: black;
+      font-size: 14px;
+      z-index: 2;
+
+      a {
+        color: #5a2e98;
       }
     }
   }
