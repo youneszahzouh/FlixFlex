@@ -5,9 +5,9 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 const PublicRoutes = () => {
   const location = useLocation();
 
-  const isLogged = true;
+  const isLogged = typeof localStorage.getItem("email") === "string";
 
-  return !isLogged ? (
+  return isLogged ? (
     <Navigate to={"/home"} state={{ location }} replace />
   ) : (
     <Outlet />

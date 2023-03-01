@@ -8,13 +8,15 @@
 
   .brand-logo {
     a {
+      cursor: pointer;
       font-size: 1.75rem;
       color: #fff;
       font-weight: 600;
     }
   }
 
-  .btn-signin {
+  .btn-logout {
+    cursor: pointer;
     height: 50px;
     line-height: 50px;
     padding: 0 30px;

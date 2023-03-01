@@ -4,7 +4,7 @@ import React from "react";
 
 const ProtectedRoutes = () => {
   const location = useLocation();
-  const isLogged = true;
+  const isLogged = typeof localStorage.getItem("email") === "string";
 
   return isLogged ? (
     <Outlet />
