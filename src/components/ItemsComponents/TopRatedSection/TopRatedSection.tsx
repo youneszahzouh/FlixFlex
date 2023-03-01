@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./top-rated.module.scss";
 import TopRatedItem from "./TopRatedItem";
 
-const TopRatedSection = ({ data, redirect_url }: { data: any }) => {
+const TopRatedSection = ({ data }: { data: any }) => {
   return (
     <div className={styles["top-rated"]}>
       <h3 className={styles["title"]}>TOP RATED</h3>

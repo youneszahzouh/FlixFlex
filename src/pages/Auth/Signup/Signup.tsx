@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import { FlixFlexCover, SignupCover } from "../../../assets";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import styles from "./signup.module.scss";
-import { auth, registerWithEmailAndPassword } from "../../../firebase/firebase";
+import { registerWithEmailAndPassword } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
-  const navigate = useNavigate();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validation = useFormik({
