@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./movie-item.module.scss";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { trimTextWithEllipsis } from "../../../helpers";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-interface MovieItemType {
+import styles from "./item-card.module.scss";
+interface ItemCardType {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,24 +15,24 @@ interface MovieItemType {
   popularity: number;
   poster_path: string;
   release_date: string;
-  title: string;
+  title?: string;
+  name?: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
 }
 interface Props {
-  item: MovieItemType;
+  item: ItemCardType;
+  redirect_url: string;
 }
-const MovieItem: React.FC<Props> = ({ item }) => {
-  const navigate = useNavigate();
+const ItemCard: React.FC<Props> = ({ item, redirect_url }) => {
+  const nameOrTitle = item?.title ?? item?.name ?? "";
   return (
-    <div
-      className={styles["movie-item"]}
-      onClick={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        navigate(`/movies/${item.id}`);
-      }}
+    <Link
+      className={styles["item-card"]}
+      to={`${redirect_url}${item?.id}_${nameOrTitle
+        .toLowerCase()
+        .replaceAll(" ", "-")}`}
     >
       <div className={styles["backdrop"]}>
         <img src={item?.poster_path} alt="" />
@@ -42,10 +42,10 @@ const MovieItem: React.FC<Props> = ({ item }) => {
         </div>
       </div>
       <h4 className={styles["title"]}>
-        {trimTextWithEllipsis(item?.title, 30)}
+        {trimTextWithEllipsis(nameOrTitle, 30)}
       </h4>
-    </div>
+    </Link>
   );
 };
 
-export default React.memo(MovieItem);
+export default React.memo(ItemCard);

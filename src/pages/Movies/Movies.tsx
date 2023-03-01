@@ -1,18 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { ItemsList, TopRatedSection } from "../../components";
 import Loader from "../../components/Loader/Loader";
-import MovieList from "../../components/Movies/MoviesList/MovieList";
-import TopRatedSection from "../../components/Movies/TopRatedSection/TopRatedSection";
-import { PaginationType } from "../../components/Pagination/Pagination";
 import {
   useGetMoviesQuery,
   useGetTopRatedMoviesQuery,
-} from "../../store/api/movieapi";
-import styles from "./home.module.scss";
+} from "../../store/api/movieApi";
+import styles from "./movies.module.scss";
 
 const base_url = "/movies";
 
-const Home = () => {
+const Movies = () => {
   const [params] = useSearchParams();
   const [page, setPage] = useState(params.get("page") ?? "1");
   const { data: latestMovies, isFetching } = useGetMoviesQuery(`page=${page}`);
@@ -35,11 +33,18 @@ const Home = () => {
 
   if (isFetching) return <Loader />;
   return (
-    <div className={styles["home"]}>
-      <MovieList pagination={pagination} data={latestMovies} />
-      <TopRatedSection data={topRatedMovies?.results} />
+    <div className={styles["movies"]}>
+      <ItemsList
+        pagination={pagination}
+        data={latestMovies}
+        redirect_url={"/movie/"}
+      />
+      <TopRatedSection
+        data={topRatedMovies?.results}
+        redirect_url={"/movie/"}
+      />
     </div>
   );
 };
 
-export default React.memo(Home);
+export default React.memo(Movies);
