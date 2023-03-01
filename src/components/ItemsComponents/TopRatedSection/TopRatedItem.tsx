@@ -18,7 +18,7 @@ const TopRatedItem: React.FC<Props> = ({ item }) => {
         .replaceAll(" ", "-")}`}
     >
       <div className={styles["poster"]}>
-        <img loading="lazy" src={item?.poster_path} alt="" />
+        <img loading="lazy" src={item?.poster_path} alt="poster" />
       </div>
 
       <div className={styles["details"]}>

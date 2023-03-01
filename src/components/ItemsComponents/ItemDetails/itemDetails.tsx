@@ -20,7 +20,7 @@ const ItemDetails = ({ itemDetails, itemVideos }: any) => {
       </div>
       <div className={styles["item-information"]}>
         <div className={styles["poster"]}>
-          <img loading="lazy" src={itemDetails?.poster_path} alt="" />
+          <img loading="lazy" src={itemDetails?.poster_path} alt="poster" />
         </div>
         <div className={styles["details"]}>
           <div className={styles["title"]}>

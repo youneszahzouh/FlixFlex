@@ -34,7 +34,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
         .replaceAll(" ", "-")}`}
     >
       <div className={styles["backdrop"]}>
-        <img loading="lazy" src={item?.poster_path} alt="" />
+        <img loading="lazy" src={item?.poster_path} alt="poster" />
         <p className={styles["vote-average"]}>{item?.vote_average}</p>
         <div className={styles["overlay"]}>
           <AiOutlinePlayCircle />

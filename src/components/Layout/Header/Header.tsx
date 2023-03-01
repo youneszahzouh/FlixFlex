@@ -18,7 +18,7 @@ const Header = () => {
       const data = doc?.docs[0]?.data();
       setuserName(data?.name);
     } catch (err) {
-      console.error(err);
+      return err;
     }
   };
 

@@ -30,10 +30,10 @@ const Login = () => {
 
   return (
     <div className={styles["login"]}>
-      <img loading="lazy" src={FlixFlexCover} alt="" />
+      <img loading="lazy" src={FlixFlexCover} alt="background_movies" />
 
       <div className={styles["login-card"]}>
-        <img loading="lazy" src={LoginCover} alt="" />
+        <img loading="lazy" src={LoginCover} alt="iron man" />
 
         <h1>FlixFlex</h1>
 
